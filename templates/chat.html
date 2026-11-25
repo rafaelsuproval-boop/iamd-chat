@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IAMD Chat — WhatsApp Cifrado Numérico</title>
+  
+  <!-- CONFIGURACIÓN PWA -->
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#00a884">
+  <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="IAMD Chat">
+  
+  <!-- ESTILOS Y SOCKET -->
+  <link rel="stylesheet" href="/static/chat.css">
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+
+<div id="login" class="login">
+  <h1>🔐 IAMD Chat</h1>
+  <p>Mensajes cifrados como <b>n³</b> (M11–M13) · Persistencia SQLite</p>
+  <input id="nombre" placeholder="Tu nombre" maxlength="20">
+  <input id="sala" placeholder="Sala (ej. general)" value="general">
+  <select id="idioma">
+    <option value="ES">Español</option>
+    <option value="EN">English</option>
+    <option value="FR">Français</option>
+    <option value="IT">Italiano</option>
+    <option value="DE">Deutsch</option>
+  </select>
+  <select id="patron">
+    <option value="cubico">Cúbico (n³) — unívoco</option>
+    <option value="cuadratico">Cuadrático (n²)</option>
+    <option value="lineal">Lineal (n)</option>
+  </select>
+  <button onclick="entrar()">Entrar</button>
+</div>
+
+<div id="chat" class="chat oculto">
+  <header class="header">
+    <div class="avatar">IAMD</div>
+    <div class="info">
+      <div class="nombre-sala" id="nombreSala">#general</div>
+      <div class="estado" id="estadoConexion">conectado</div>
+    </div>
+    <div class="badge" id="badgePatron">n³</div>
+  </header>
+
+  <main id="mensajes" class="mensajes"></main>
+
+  <footer class="footer">
+    <input id="entrada" placeholder="Escribe un mensaje..." autocomplete="off">
+    <button onclick="enviar()" title="Enviar">➤</button>
+  </footer>
+</div>
+
+<script src="/static/chat.js"></script>
+
+<!-- REGISTRO DEL SERVICE WORKER (PWA) -->
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/static/sw.js")
+        .then((reg) => console.log("[PWA] SW registrado con éxito"))
+        .catch((err) => console.warn("[PWA] Error SW:", err));
+    });
+  }
+</script>
+
+</body>
+</html>
