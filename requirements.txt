@@ -1,5 +1,6 @@
-flask
-flask-socketio
+Flask
+Flask-SocketIO
 python-socketio
-gunicorn
-eventlet
+deep-translator
+gunicorn==20.1.0
+eventlet==0.30.2
