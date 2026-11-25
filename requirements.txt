@@ -3,5 +3,5 @@ Flask-SocketIO
 python-socketio
 deep-translator
 gunicorn>=23.0.0
-eventlet>=0.40.4
+simple-websocket
 setuptools<82
